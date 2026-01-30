@@ -20,20 +20,17 @@ Typical scenarios where this container excels
 Download the container image from the registry
 
 ```bash
-docker pull cleanstart/kubectl:kubernetes
+docker pull cleanstart/kubectl:latest
 ```
 ```bash
-docker pull cleanstart/kubectl:container-management
-```
-```bash
-docker pull cleanstart/kubectl:cluster-tools
+docker pull cleanstart/kubectl:latest-dev
 ```
 
 ## Basic Run
 Run the container with basic configuration
 
 ```bash
-docker run -it --name kubectl cleanstart/kubectl:latest
+docker run -it --name kubectl-test cleanstart/kubectl:latest
 ```
 
 ## Production Deployment
@@ -41,9 +38,9 @@ Deploy with production security settings
 
 ```bash
 docker run -d --name kubectl-prod \
+  --read-only \
   --security-opt=no-new-privileges \
   --user 1000:1000 \
-  --restart unless-stopped \
   cleanstart/kubectl:latest
 ```
 
@@ -51,28 +48,30 @@ docker run -d --name kubectl-prod \
 Mount local directory for persistent data
 
 ```bash
-docker run -v /app:/app cleanstart/kubectl:latest
+docker run -v ~/.kube:/root/.kube cleanstart/kubectl:latest
 ```
 
 ## Port Forwarding
 Run with custom port mappings
 
 ```bash
-docker run -p 8080:8080 cleanstart/kubectl:latest
+docker run -p 8001:8001 cleanstart/kubectl:latest proxy
 ```
 
 ## Environment Variables
 Configuration options available through environment variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| ENV | production | Environment mode |
-| LOG_LEVEL | info | Logging level |
-
 ## Security Best Practices
 Recommended security configurations and practices
 
-
+Use specific image tags for production deployments
+Mount read-only kubeconfig files
+Implement RBAC policies for cluster access
+Use separate service accounts with minimal privileges
+Enable audit logging for kubectl operations
+Regularly rotate kubeconfig credentials
+Use network policies to restrict API server access
+Implement proper secrets management
 
 ## Kubernetes Security Context
 Recommended security context for Kubernetes deployments
