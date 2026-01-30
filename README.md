@@ -21,20 +21,17 @@ Typical scenarios where this container excels
 Download the container image from the registry
 
 ```bash
-docker pull cleanstart/kubectl:kubernetes
+docker pull cleanstart/kubectl:latest
 ```
 ```bash
-docker pull cleanstart/kubectl:container-management
-```
-```bash
-docker pull cleanstart/kubectl:cluster-tools
+docker pull cleanstart/kubectl:latest-dev
 ```
 
 ## Basic Run
 Run the container with basic configuration
 
 ```bash
-docker run -it --name kubectl cleanstart/kubectl:latest
+docker run -it --name kubectl-test cleanstart/kubectl:latest
 ```
 
 ## Production Deployment
@@ -42,22 +39,22 @@ Deploy with production security settings
 
 ```bash
 docker run -d --name kubectl-prod \
+  --read-only \
   --security-opt=no-new-privileges \
   --user 1000:1000 \
-  --restart unless-stopped \
   cleanstart/kubectl:latest
 ```
 
 Volume Mount Mount local directory for persistent data
 
 ```bash
-docker run -v /app:/app cleanstart/kubectl:latest
+docker run -v ~/.kube:/root/.kube cleanstart/kubectl:latest
 ```
 
 Port Forwarding Run with custom port mappings
 
 ```bash
-docker run -p 8080:8080 cleanstart/kubectl:latest
+docker run -p 8001:8001 cleanstart/kubectl:latest proxy
 ```
 
 ## Environment Variables
