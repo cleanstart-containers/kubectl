@@ -5,7 +5,8 @@ Official kubectl container image providing a secure, enterprise-ready command-li
 📌 **Base Foundation**: Production-ready container from cleanstart.
 
 **Image Path**: `kubectl`
-**Registry**: cleanstart Registry
+
+**Registry**: `cleanstart`
 
 ## Key Features
 Core capabilities and strengths of this container
@@ -21,17 +22,17 @@ Typical scenarios where this container excels
 Download the container image from the registry
 
 ```bash
-docker pull cleanstart/kubectl:latest
+docker pull ghcr.io/cleanstart-containers/kubectl:latest
 ```
 ```bash
-docker pull cleanstart/kubectl:latest-dev
+docker pull ghcr.io/cleanstart-containers/kubectl:latest-dev
 ```
 
 ## Basic Run
 Run the container with basic configuration
 
 ```bash
-docker run -it --name kubectl-test cleanstart/kubectl:latest
+docker run -it --name kubectl-test ghcr.io/cleanstart-containers/kubectl:latest
 ```
 
 ## Production Deployment
@@ -42,19 +43,19 @@ docker run -d --name kubectl-prod \
   --read-only \
   --security-opt=no-new-privileges \
   --user 1000:1000 \
-  cleanstart/kubectl:latest
+  ghcr.io/cleanstart-containers/kubectl:latest
 ```
 
 Volume Mount Mount local directory for persistent data
 
 ```bash
-docker run -v ~/.kube:/root/.kube cleanstart/kubectl:latest
+docker run -v ~/.kube:/root/.kube ghcr.io/cleanstart-containers/kubectl:latest
 ```
 
 Port Forwarding Run with custom port mappings
 
 ```bash
-docker run -p 8001:8001 cleanstart/kubectl:latest proxy
+docker run -p 8001:8001 ghcr.io/cleanstart-containers/kubectl:latest proxy
 ```
 
 ## Environment Variables
